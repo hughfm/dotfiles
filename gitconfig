@@ -1,3 +1,5 @@
+# target: ~/.gitconfig
+
 [hub]
   protocol = https
 

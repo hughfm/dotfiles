@@ -1,3 +1,5 @@
+" target: ~/.config/nvim/init.vim
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 " file browser

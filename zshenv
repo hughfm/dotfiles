@@ -1,3 +1,5 @@
+# target: ~/.zshenv
+
 export EDITOR='nvim'
 export CLICOLOR=1
 export FZF_DEFAULT_COMMAND='ag -g ""'
