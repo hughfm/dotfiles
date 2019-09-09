@@ -2,9 +2,6 @@
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" file browser
-Plug 'scrooloose/nerdtree'
-
 " search
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
