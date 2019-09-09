@@ -179,3 +179,8 @@ command! -bang -nargs=* Rg
   \   fzf#vim#with_preview('up:50%'),
   \   <bang>0
   \ )
+
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Right> <NOP>
+noremap <Left> <NOP>
