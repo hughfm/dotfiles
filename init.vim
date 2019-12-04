@@ -106,11 +106,6 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-" --------------
-" -- NERDTree --
-" --------------
-nmap <leader>t :NERDTreeToggle<CR>
-
 " -------------
 " -- Airline --
 " -------------
@@ -139,6 +134,7 @@ let g:prettier#exec_cmd_async = 1
 " Leader shortcuts
 nmap <leader>f :Files<CR>
 nmap <leader>b :Buffers<CR>
+nmap <leader>t :TestFile<CR>
 
 " configure FZF to use Ag
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
