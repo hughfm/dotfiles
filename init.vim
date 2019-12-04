@@ -82,6 +82,8 @@ set shiftwidth=0 " use tabstop value for determining indentation spaces
 set updatetime=100 " ms to wait before writing swap file to disk.
 set inccommand=nosplit " show substitution results incrementally
 
+let g:netrw_keepdir=0 " keeps netrw directory in sync with current directory
+
 match Todo /\s\+$/ " highlight trailing whitespace with Todo group
 
 " --------------
