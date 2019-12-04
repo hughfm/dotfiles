@@ -50,6 +50,9 @@ Plug 'zirrostig/vim-jack-syntax'
 Plug 'jparise/vim-graphql'
 Plug 'elixir-lang/vim-elixir'
 
+" Load this last
+Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 
 syntax enable " enables syntax highlighting
