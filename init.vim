@@ -176,7 +176,3 @@ command! -bang -nargs=* Rg
   \   <bang>0
   \ )
 
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Right> <NOP>
-noremap <Left> <NOP>
