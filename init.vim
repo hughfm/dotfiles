@@ -1,5 +1,7 @@
 " target: ~/.config/nvim/init.vim
+" vim:foldmethod=marker
 
+" vim-plug {{{
 call plug#begin('~/.local/share/nvim/plugged')
 
 " search
@@ -15,17 +17,13 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter' " shows git status in sidebar
 Plug 'tpope/vim-fugitive' " wrapper for git commands
 
-" linting and other tasks to be run async
-Plug 'neomake/neomake'
-
-" auto-completion
-Plug 'Shougo/deoplete.nvim'
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+" intellisense engine
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " runs test files in a variety of languages
 Plug 'janko-m/vim-test'
 
-" displays color previews for hex values like #c0ffee and rgb(255, 0, 0).
+" displays color previews for hex values like #c0ffee and rgb(100, 100, 100).
 Plug 'lilydjwg/colorizer'
 
 " shows contents of registers when you need it.
@@ -36,10 +34,12 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 " colors
 Plug 'flazz/vim-colorschemes'
+Plug 'morhetz/gruvbox'
 
 " ----------------------
 " -- Language Support --
 " ----------------------
+Plug 'derekwyatt/vim-scala'
 Plug 'chr4/nginx.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -54,16 +54,32 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
+" }}}
+
+source ~/dotfiles/vim-coc-mappings.vim
+
+au BufRead,BufNewFile *.sbt set filetype=scala
+autocmd FileType json syntax match Comment +\/\/.\+$+ " coc.vim uses jsonc for config
+let g:airline#extensions#coc#enabled = 1
 
 syntax enable " enables syntax highlighting
-colorscheme Benokai " set preferred colors
+let g:gruvbox_vert_split = 'bg4'
+colorscheme gruvbox " set preferred colors
 filetype plugin indent on " enables filetype detection, and loads filetype plugin and indent files
 
 set backupdir=~/.local/share/nvim/backup " set location for backup files
 set backupcopy=auto " let vim decide how to write the backup file
 
+set nobackup " (coc.vim recommends)
+set nowritebackup " (coc.vim recommends)
+
+set cmdheight=2 " size of command prompt (coc.vim recommends)
+
+set shortmess+=c " Don't give |ins-completion-menu| messages (coc.vim recommends)
+set signcolumn=yes " Always show signcolumns (coc.vim recommends)
+
 set list " show invisibles
-set listchars=tab:▸-,space:·,eol:¬,trail:·,nbsp:_ " configure characters for invisibles
+" set listchars=tab:▸-,space:·,eol:¬,trail:·,nbsp:_ " configure characters for invisibles
 
 set number " display line numbers
 set mouse=a " enable mouse support in all modes
@@ -79,25 +95,25 @@ set tabstop=2 " number of spaces to fill a tab
 set shiftwidth=0 " use tabstop value for determining indentation spaces
 
 " updatetime is set here to reduce the time for gitgutter to update
-set updatetime=100 " ms to wait before writing swap file to disk.
+set updatetime=200 " ms to wait before writing swap file to disk.
 set inccommand=nosplit " show substitution results incrementally
 
-let g:netrw_keepdir=0 " keeps netrw directory in sync with current directory
+" let g:netrw_keepdir=0 " keeps netrw directory in sync with current directory
 
 match Todo /\s\+$/ " highlight trailing whitespace with Todo group
 
 " --------------
 " -- Deoplete --
 " --------------
-let g:deoplete#enable_at_startup = 1 " auto-start
+" let g:deoplete#enable_at_startup = 1 " auto-start
 
 " -------------
 " -- Neomake --
 " -------------
-call neomake#configure#automake('nrwi', 500) " run on ALL changes
-let g:neomake_serialize = 1 " run makers sequentially
-let g:neomake_serialize_abort_on_error = 1 " bail after any maker error
-let g:neomake_open_list = 2 " open location/quickfix list and preserve cursor position
+" call neomake#configure#automake('nrwi', 500) " run on ALL changes
+" let g:neomake_serialize = 1 " run makers sequentially
+" let g:neomake_serialize_abort_on_error = 1 " bail after any maker error
+" let g:neomake_open_list = 2 " open location/quickfix list and preserve cursor position
 
 " ---------------
 " -- Colorizer --
@@ -180,4 +196,3 @@ command! -bang -nargs=* Rg
   \   fzf#vim#with_preview('up:50%'),
   \   <bang>0
   \ )
-
