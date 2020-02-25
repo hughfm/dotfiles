@@ -42,3 +42,8 @@ load-nvmrc
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
 [ -f ~/.zshrc_private ] && source ~/.zshrc_private
+
+autoload -Uz compinit
+compinit
+# Completion for kitty - must come after call to compinit
+kitty + complete setup zsh | source /dev/stdin
