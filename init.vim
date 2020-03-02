@@ -156,6 +156,8 @@ let g:prettier#exec_cmd_async = 1
 nmap <leader>f :Files<CR>
 nmap <leader>b :Buffers<CR>
 nmap <leader>t :TestFile<CR>
+nmap <leader>d :bd<CR>
+nmap <leader>c :noh<CR>
 
 " configure FZF to use Ag
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
