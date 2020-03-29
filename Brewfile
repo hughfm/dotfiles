@@ -52,8 +52,8 @@ cask "visual-studio-code"
 # ============================
 # ============================
 
-# tap "heroku/brew"
-# brew "heroku/brew/heroku"
+tap "heroku/brew"
+brew "heroku"
 
 # brew "certbot"
 # brew "dep"
