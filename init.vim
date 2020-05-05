@@ -36,6 +36,8 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'flazz/vim-colorschemes'
 Plug 'morhetz/gruvbox'
 
+Plug 'junegunn/vim-easy-align'
+
 " ----------------------
 " -- Language Support --
 " ----------------------
@@ -158,6 +160,8 @@ nmap <leader>b :Buffers<CR>
 nmap <leader>t :TestFile<CR>
 nmap <leader>d :bd<CR>
 nmap <leader>c :noh<CR>
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " configure FZF to use Ag
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
