@@ -75,7 +75,7 @@ set backupcopy=auto " let vim decide how to write the backup file
 set nobackup " (coc.vim recommends)
 set nowritebackup " (coc.vim recommends)
 
-set cmdheight=2 " size of command prompt (coc.vim recommends)
+set cmdheight=1 " size of command prompt (coc.vim recommends)
 
 set shortmess+=c " Don't give |ins-completion-menu| messages (coc.vim recommends)
 set signcolumn=yes " Always show signcolumns (coc.vim recommends)
