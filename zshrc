@@ -46,3 +46,5 @@ autoload -Uz compinit
 compinit
 # Completion for kitty - must come after call to compinit
 kitty + complete setup zsh | source /dev/stdin
+
+eval "$(starship init zsh)"
