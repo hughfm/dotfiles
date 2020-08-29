@@ -51,6 +51,7 @@ Plug 'fatih/vim-go'
 Plug 'zirrostig/vim-jack-syntax'
 Plug 'jparise/vim-graphql'
 Plug 'elixir-lang/vim-elixir'
+Plug 'jxnblk/vim-mdx-js'
 
 " Load this last
 Plug 'ryanoasis/vim-devicons'
