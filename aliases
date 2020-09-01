@@ -38,5 +38,5 @@ if command -v kitty > /dev/null; then
 fi
 
 if command -v exa > /dev/null; then
-  alias ls='exa --long --git --header --all --group'
+  alias ls='exa --long --git --header --all --group --icons'
 fi
