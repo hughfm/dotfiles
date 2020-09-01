@@ -11,7 +11,6 @@ Plug 'mileszs/ack.vim'
 
 " status/tabline
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 
 " -- Git --
 Plug 'airblade/vim-gitgutter' " shows git status in sidebar
@@ -68,6 +67,7 @@ let g:airline#extensions#coc#enabled = 1
 syntax enable " enables syntax highlighting
 let g:gruvbox_vert_split = 'bg4'
 colorscheme gruvbox " set preferred colors
+set background=light   " Setting light mode
 filetype plugin indent on " enables filetype detection, and loads filetype plugin and indent files
 
 set backupdir=~/.local/share/nvim/backup " set location for backup files
@@ -133,7 +133,7 @@ endif
 " -------------
 " -- Airline --
 " -------------
-let g:airline_theme='base16' " set preferred theme
+let g:airline_theme='gruvbox' " set preferred theme
 let g:airline_powerline_fonts = 1 " use powerline symbols
 let g:airline#extensions#tabline#enabled = 1 " turn on tabline
 
