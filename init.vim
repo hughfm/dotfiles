@@ -58,6 +58,21 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 " }}}
 
+let g:coc_global_extensions = [
+\ 'coc-tabnine',
+\ 'coc-graphql',
+\ 'coc-git',
+\ 'coc-tsserver',
+\ 'coc-metals',
+\ 'coc-json',
+\ 'coc-html',
+\ 'coc-css',
+\ 'coc-eslint',
+\ 'coc-markdownlint',
+\ 'coc-sql',
+\ 'coc-snippets'
+\ ]
+
 source ~/dotfiles/vim-coc-mappings.vim
 
 au BufRead,BufNewFile *.sbt set filetype=scala
