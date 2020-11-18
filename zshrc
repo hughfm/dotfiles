@@ -44,7 +44,5 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting. Make sure th
 
 autoload -Uz compinit
 compinit
-# Completion for kitty - must come after call to compinit
-kitty + complete setup zsh | source /dev/stdin
 
 eval "$(starship init zsh)"
