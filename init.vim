@@ -28,9 +28,6 @@ Plug 'lilydjwg/colorizer'
 " shows contents of registers when you need it.
 Plug 'junegunn/vim-peekaboo'
 
-" auto-formatting
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
 " colors
 Plug 'flazz/vim-colorschemes'
 Plug 'morhetz/gruvbox'
@@ -59,18 +56,20 @@ call plug#end()
 " }}}
 
 let g:coc_global_extensions = [
-\ 'coc-tabnine',
-\ 'coc-graphql',
-\ 'coc-git',
-\ 'coc-tsserver',
-\ 'coc-metals',
-\ 'coc-json',
-\ 'coc-html',
 \ 'coc-css',
+\ 'coc-emoji',
 \ 'coc-eslint',
+\ 'coc-git',
+\ 'coc-graphql',
+\ 'coc-html',
+\ 'coc-json',
 \ 'coc-markdownlint',
+\ 'coc-metals',
+\ 'coc-prettier',
+\ 'coc-snippets',
 \ 'coc-sql',
-\ 'coc-snippets'
+\ 'coc-tabnine',
+\ 'coc-tsserver'
 \ ]
 
 source ~/dotfiles/vim-coc-mappings.vim
