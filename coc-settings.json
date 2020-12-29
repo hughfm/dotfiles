@@ -1,0 +1,18 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "scala",
+    "typescript",
+    "typescriptreact",
+    "graphql"
+  ],
+  "coc.preferences.formatOnType": true,
+  "metals.sbtScript": "/usr/local/bin/sbt",
+  "sql.database": "postgresql",
+  "tsserver.formatOnType": true,
+  "coc.source.emoji.filetypes": [
+    "markdown",
+    "typescriptreact"
+  ],
+  "codeLens.enable": true,
+  "metals.statusBarEnabled": true
+}
