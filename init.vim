@@ -23,7 +23,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'janko-m/vim-test'
 
 " displays color previews for hex values like #c0ffee and rgb(100, 100, 100).
-Plug 'lilydjwg/colorizer'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " shows contents of registers when you need it.
 Plug 'junegunn/vim-peekaboo'
