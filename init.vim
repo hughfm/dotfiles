@@ -34,6 +34,8 @@ Plug 'morhetz/gruvbox'
 
 Plug 'junegunn/vim-easy-align'
 
+Plug 'tpope/vim-commentary'
+
 " ----------------------
 " -- Language Support --
 " ----------------------
@@ -48,6 +50,9 @@ Plug 'zirrostig/vim-jack-syntax'
 Plug 'jparise/vim-graphql'
 Plug 'elixir-lang/vim-elixir'
 Plug 'jxnblk/vim-mdx-js'
+Plug 'tpope/vim-rails'
+Plug 'slim-template/vim-slim'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Load this last
 Plug 'ryanoasis/vim-devicons'
@@ -62,6 +67,7 @@ let g:coc_global_extensions = [
 \ 'coc-git',
 \ 'coc-graphql',
 \ 'coc-html',
+\ 'coc-import-cost',
 \ 'coc-json',
 \ 'coc-markdownlint',
 \ 'coc-metals',
@@ -69,7 +75,8 @@ let g:coc_global_extensions = [
 \ 'coc-snippets',
 \ 'coc-sql',
 \ 'coc-tabnine',
-\ 'coc-tsserver'
+\ 'coc-tsserver',
+\ 'coc-solargraph'
 \ ]
 
 source ~/dotfiles/vim-coc-mappings.vim
