@@ -27,6 +27,7 @@ brew "the_silver_searcher"
 brew "tmate"
 brew "tmux"
 brew "tree"
+brew "watch"
 brew "wget"
 
 # ----------
@@ -85,7 +86,6 @@ brew "heroku"
 # brew "scala"
 # brew "ssh-copy-id"
 # brew "vegeta"
-# brew "watch"
 # brew "yarn"
 
 # cask "altair"
