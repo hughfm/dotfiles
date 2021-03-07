@@ -14,5 +14,8 @@
     "typescriptreact"
   ],
   "codeLens.enable": true,
-  "metals.statusBarEnabled": true
+  "metals.statusBarEnabled": true,
+  "solargraph.useBundler": true,
+  "solargraph.bundlerPath": "~/.rvm/gems/ruby-2.7.1/wrappers/bundle",
+  "graphql.filetypes": []
 }
