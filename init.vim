@@ -74,7 +74,6 @@ let g:coc_global_extensions = [
 \ 'coc-prettier',
 \ 'coc-snippets',
 \ 'coc-sql',
-\ 'coc-tabnine',
 \ 'coc-tsserver',
 \ 'coc-solargraph'
 \ ]
