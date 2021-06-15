@@ -35,6 +35,7 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/vim-easy-align'
 
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 
 " ----------------------
 " -- Language Support --
