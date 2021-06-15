@@ -41,10 +41,9 @@ Plug 'tpope/vim-commentary'
 " ----------------------
 Plug 'derekwyatt/vim-scala'
 Plug 'chr4/nginx.vim'
+Plug 'leafgarland/typescript-vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-Plug 'HerringtonDarkholme/yats.vim' " (Typescript)
 Plug 'fatih/vim-go'
 Plug 'zirrostig/vim-jack-syntax'
 Plug 'jparise/vim-graphql'
