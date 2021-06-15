@@ -1,0 +1,17 @@
+{
+  "version": 1.1,
+  "properties": [
+    {
+      "name": "composes",
+      "description": "CSS Modules composes property."
+    }
+  ],
+  "atDirectives": [
+    {
+      "name": "@value",
+      "description": "CSS Modules @value import directive."
+    }
+  ],
+  "pseudoClasses": [],
+  "pseudoElements": []
+}
