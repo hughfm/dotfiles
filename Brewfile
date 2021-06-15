@@ -75,9 +75,6 @@ cask "whatsapp"
 # ============================
 # ============================
 
-tap "heroku/brew"
-brew "heroku"
-
 # brew "certbot"
 # brew "dep"
 # brew "elixir"
