@@ -4,6 +4,19 @@
 " vim-plug {{{
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'neovim/nvim-lspconfig'
+Plug 'folke/lsp-colors.nvim'
+
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/playground'
+
+Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/vim-vsnip'
+
 " search
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -15,9 +28,7 @@ Plug 'vim-airline/vim-airline'
 " -- Git --
 Plug 'airblade/vim-gitgutter' " shows git status in sidebar
 Plug 'tpope/vim-fugitive' " wrapper for git commands
-
-" intellisense engine
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-rhubarb'
 
 " runs test files in a variety of languages
 Plug 'janko-m/vim-test'
@@ -33,26 +44,8 @@ Plug 'flazz/vim-colorschemes'
 Plug 'morhetz/gruvbox'
 
 Plug 'junegunn/vim-easy-align'
-
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-
-" ----------------------
-" -- Language Support --
-" ----------------------
-Plug 'derekwyatt/vim-scala'
-Plug 'chr4/nginx.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'fatih/vim-go'
-Plug 'zirrostig/vim-jack-syntax'
-Plug 'jparise/vim-graphql'
-Plug 'elixir-lang/vim-elixir'
-Plug 'jxnblk/vim-mdx-js'
-Plug 'tpope/vim-rails'
-Plug 'slim-template/vim-slim'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Load this last
 Plug 'ryanoasis/vim-devicons'
@@ -60,49 +53,22 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 " }}}
 
-let g:coc_global_extensions = [
-\ 'coc-css',
-\ 'coc-emoji',
-\ 'coc-eslint',
-\ 'coc-git',
-\ 'coc-graphql',
-\ 'coc-html',
-\ 'coc-import-cost',
-\ 'coc-json',
-\ 'coc-markdownlint',
-\ 'coc-metals',
-\ 'coc-prettier',
-\ 'coc-snippets',
-\ 'coc-sql',
-\ 'coc-tsserver',
-\ 'coc-solargraph'
-\ ]
-
-source ~/dotfiles/vim-coc-mappings.vim
-
-au BufRead,BufNewFile *.sbt set filetype=scala
-autocmd FileType json syntax match Comment +\/\/.\+$+ " coc.vim uses jsonc for config
-let g:airline#extensions#coc#enabled = 1
-
-syntax enable " enables syntax highlighting
 let g:gruvbox_vert_split = 'bg4'
 colorscheme gruvbox " set preferred colors
 set background=light   " Setting light mode
+
+runtime lua/lsp.lua
+runtime lua/treesitter.lua
+
+au BufRead,BufNewFile *.sbt set filetype=scala
+
+syntax enable " enables syntax highlighting
 filetype plugin indent on " enables filetype detection, and loads filetype plugin and indent files
 
 set backupdir=~/.local/share/nvim/backup " set location for backup files
 set backupcopy=auto " let vim decide how to write the backup file
 
-set nobackup " (coc.vim recommends)
-set nowritebackup " (coc.vim recommends)
-
-set cmdheight=1 " size of command prompt (coc.vim recommends)
-
-set shortmess+=c " Don't give |ins-completion-menu| messages (coc.vim recommends)
-set signcolumn=yes " Always show signcolumns (coc.vim recommends)
-
 set list " show invisibles
-" set listchars=tab:▸-,space:·,eol:¬,trail:·,nbsp:_ " configure characters for invisibles
 
 set number " display line numbers
 set mouse=a " enable mouse support in all modes
@@ -121,22 +87,7 @@ set shiftwidth=0 " use tabstop value for determining indentation spaces
 set updatetime=200 " ms to wait before writing swap file to disk.
 set inccommand=nosplit " show substitution results incrementally
 
-" let g:netrw_keepdir=0 " keeps netrw directory in sync with current directory
-
 match Todo /\s\+$/ " highlight trailing whitespace with Todo group
-
-" --------------
-" -- Deoplete --
-" --------------
-" let g:deoplete#enable_at_startup = 1 " auto-start
-
-" -------------
-" -- Neomake --
-" -------------
-" call neomake#configure#automake('nrwi', 500) " run on ALL changes
-" let g:neomake_serialize = 1 " run makers sequentially
-" let g:neomake_serialize_abort_on_error = 1 " bail after any maker error
-" let g:neomake_open_list = 2 " open location/quickfix list and preserve cursor position
 
 " ---------------
 " -- Colorizer --
