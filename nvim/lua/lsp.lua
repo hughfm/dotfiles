@@ -2,7 +2,7 @@
 
 local nvim_lsp = require('lspconfig')
 
--- Use an on_attach function to only map the following keys 
+-- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -32,56 +32,38 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
 end
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "tsserver", "bashls", "cssls", "graphql", "html", "jsonls", "vimls", "efm" }
+local servers = { "tsserver", "bashls", "cssls", "graphql", "html", "jsonls", "vimls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
-    }
+    },
+    capabilities = capabilities,
   }
 end
 
-local eslint = {
-  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
-  lintIgnoreExitCode = true,
-  lintStdin = true,
-  lintFormats = {"%f:%l:%c: %m"},
-}
-
-local efm_languages = {
-  typescript = { eslint },
-  typescriptreact = { eslint }
-}
-
-nvim_lsp.efm.setup {
-  on_attach = on_attach,
-  root_dir = nvim_lsp.util.root_pattern(
-    ".eslintrc.cjs",
-    ".eslintrc.js",
-    ".eslintrc.yaml",
-    ".eslintrc.yml",
-    ".eslintrc.json",
-    "package.json"
-  ),
-  settings = {
-    languages = efm_languages,
-    log_level = 1,
-    log_file = '~/efm.log',
-  },
-  filetypes = vim.tbl_keys(efm_languages),
-  init_options = { documentFormatting = true, codeAction = true },
-}
+require("eslint")
 
 vim.lsp.set_log_level("debug")
 
-vim.o.completeopt = "menuone,noselect";
 -- Compe setup
+vim.o.completeopt = "menuone,noselect";
+
 require'compe'.setup {
   enabled = true;
   autocomplete = true;
@@ -99,6 +81,11 @@ require'compe'.setup {
   source = {
     path = true;
     nvim_lsp = true;
+    buffer = true;
+    nvim_lua = true;
+    spell = true;
+    nvim_treesitter = true;
+    vsnip = true;
   };
 }
 
@@ -121,6 +108,8 @@ end
 _G.tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-n>"
+  elseif vim.fn.call("vsnip#available", {1}) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
   elseif check_back_space() then
     return t "<Tab>"
   else
@@ -130,6 +119,8 @@ end
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-p>"
+  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
   else
     return t "<S-Tab>"
   end
@@ -139,3 +130,9 @@ vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+
+vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { expr = true, silent = true })
+vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", { expr = true, silent = true })
+vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')", { expr = true, silent = true })
+vim.api.nvim_set_keymap("i", "<C-f>", "compe#scroll({ 'delta': +4 })", { expr = true, silent = true })
+vim.api.nvim_set_keymap("i", "<C-d>", "compe#scroll({ 'delta': -4 })", { expr = true, silent = true })
