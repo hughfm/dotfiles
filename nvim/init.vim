@@ -111,7 +111,7 @@ EOF
 runtime lua/lsp.lua
 runtime lua/treesitter.lua
 
-au BufRead,BufNewFile *.sbt set filetype=scala
+autocmd BufRead,BufNewFile *.sbt set filetype=scala
 
 syntax enable " enables syntax highlighting
 filetype plugin indent on " enables filetype detection, and loads filetype plugin and indent files
@@ -121,7 +121,7 @@ set backupcopy=auto " let vim decide how to write the backup file
 
 set list " show invisibles
 
-set number " display line numbers
+set number relativenumber " display line numbers
 set mouse=a " enable mouse support in all modes
 set incsearch " show pattern matches, as they are typed
 set cursorline " highlight current line
@@ -133,12 +133,16 @@ set splitright " new windows go to the right
 set expandtab " use spaces for tabs
 set tabstop=2 " number of spaces to fill a tab
 set shiftwidth=0 " use tabstop value for determining indentation spaces
+set autoread " automatically update buffer when file changes, if possible
 
 " updatetime is set here to reduce the time for gitgutter to update
 set updatetime=200 " ms to wait before writing swap file to disk.
 set inccommand=nosplit " show substitution results incrementally
 
 match Todo /\s\+$/ " highlight trailing whitespace with Todo group
+
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '>-2<CR>gv=gv
 
 " ---------------
 " -- Colorizer --
