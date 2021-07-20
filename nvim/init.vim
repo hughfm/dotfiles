@@ -43,7 +43,6 @@ Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'junegunn/vim-peekaboo'
 
 " colors
-Plug 'flazz/vim-colorschemes'
 Plug 'morhetz/gruvbox'
 
 Plug 'junegunn/vim-easy-align'
