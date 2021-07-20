@@ -58,7 +58,7 @@ call plug#end()
 
 let g:gruvbox_vert_split = 'bg4'
 colorscheme gruvbox " set preferred colors
-set background=light   " Setting light mode
+set background=dark
 
 lua << EOF
 require('telescope').setup{
