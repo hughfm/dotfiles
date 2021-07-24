@@ -86,7 +86,7 @@ require('telescope').setup{
     file_sorter =  require'telescope.sorters'.get_fuzzy_file,
     file_ignore_patterns = {},
     generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-    path_display = { "shorten" },
+    -- path_display = { "shorten" },
     winblend = 0,
     border = {},
     borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
@@ -188,6 +188,7 @@ let g:prettier#exec_cmd_async = 1
 
 " Leader shortcuts
 nmap <leader>f :Files<CR>
+nmap <leader>F :Telescope find_files<CR>
 nmap <leader>b :Buffers<CR>
 nmap <leader>t :TestFile<CR>
 nmap <leader>d :bd<CR>
