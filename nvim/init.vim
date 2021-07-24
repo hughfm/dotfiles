@@ -55,10 +55,6 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 " }}}
 
-let g:gruvbox_vert_split = 'bg4'
-colorscheme gruvbox " set preferred colors
-set background=dark
-
 lua << EOF
 require('telescope').setup{
   defaults = {
@@ -138,6 +134,10 @@ set autoread " automatically update buffer when file changes, if possible
 " updatetime is set here to reduce the time for gitgutter to update
 set updatetime=200 " ms to wait before writing swap file to disk.
 set inccommand=nosplit " show substitution results incrementally
+
+let g:gruvbox_vert_split = 'bg4'
+colorscheme gruvbox " set preferred colors
+set background=dark
 
 match Todo /\s\+$/ " highlight trailing whitespace with Todo group
 
