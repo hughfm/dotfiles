@@ -141,7 +141,6 @@ let g:prettier#exec_cmd_async = 1
 " Leader shortcuts
 nmap <leader>f :Files<CR>
 nmap <leader>F :Telescope find_files<CR>
-nmap <leader>C :lua require('custom/telescope').find_favorites()<CR>
 nmap <leader>b :Buffers<CR>
 nmap <leader>t :TestFile<CR>
 nmap <leader>d :bd<CR>
