@@ -34,9 +34,6 @@ Plug 'airblade/vim-gitgutter' " shows git status in sidebar
 Plug 'tpope/vim-fugitive' " wrapper for git commands
 Plug 'tpope/vim-rhubarb'
 
-" runs test files in a variety of languages
-Plug 'janko-m/vim-test'
-
 " displays color previews for hex values like #c0ffee and rgb(100, 100, 100).
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
@@ -147,9 +144,6 @@ nmap <leader>d :bd<CR>
 nmap <leader>c :noh<CR>
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
-
-" configure FZF to use Ag
-" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.5, 'highlight': 'Comment' } }
 
