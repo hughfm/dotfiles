@@ -77,15 +77,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "double" } })<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
-  vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" })
-  vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" })
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = {
-      prefix = "■ ",
-      spacing = 4,
-    },
-  })
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -108,6 +99,16 @@ for _, lsp in ipairs(servers) do
       debounce_text_changes = 150,
     },
     capabilities = capabilities,
+    handlers = {
+      ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+      ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+      ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = {
+          prefix = "■ ",
+          spacing = 4,
+        },
+      }),
+    },
   }
 end
 
