@@ -6,6 +6,7 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 alias gbdf='git branch -d $(git branch | FZF)'
 alias 'gbdf!'='git branch -D $(git branch | FZF)'
 alias grb='git checkout $(git branch --sort=-committerdate | FZF)'
+alias gsn='git status -uno'
 
 if command -v nvim > /dev/null; then
   alias v=nvim
