@@ -1,4 +1,4 @@
--- target: ~/.config/nvim/lua/treesitter.lua
+-- target: ~/.config/nvim/lua/hughfm/treesitter.lua
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "javascript", "typescript", "tsx", "query", "lua", "json", "jsonc" },

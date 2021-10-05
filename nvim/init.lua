@@ -6,7 +6,6 @@ local cmd = vim.cmd
 cmd([[syntax enable]]) -- enables syntax highlighting
 cmd([[filetype plugin indent on]]) -- enables filetype detection, and loads filetype plugin and indent files
 
-
 cmd([[set backupdir=~/.local/share/nvim/backup]])
 opt.backupcopy = 'auto' -- let vim decide how to write the backup file
 opt.list = true -- show invisibles
@@ -32,10 +31,6 @@ opt.updatetime = 200 -- ms to wait before writing swap file to disk.
 opt.inccommand = 'nosplit' -- show substitution results incrementally
 
 cmd([[match Todo /\s\+$/]]) -- highlight trailing whitespace with Todo group
-
-opt.foldmethod = 'expr'
-opt.foldexpr = vim.fn['nvim_treesitter#foldexpr']()
-cmd([[autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))]])
 
 vim.api.nvim_set_keymap('n', '<leader>d', ':bd<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>c', ':noh<CR>', {})

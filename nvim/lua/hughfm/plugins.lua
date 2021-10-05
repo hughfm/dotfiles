@@ -9,44 +9,53 @@ vim.cmd([[
 return require('packer').startup {
   function(use)
     use 'wbthomason/packer.nvim'
-    use 'folke/lsp-colors.nvim'
-    use 'nvim-lua/popup.nvim'
-    use 'nvim-lua/plenary.nvim'
+
     use {
       'nvim-telescope/telescope.nvim',
       config = function()
         require('hughfm.telescope')
-      end
+      end,
+      requires = {
+        'nvim-lua/popup.nvim',
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope-fzy-native.nvim',
+      },
     }
-    use 'nvim-telescope/telescope-fzy-native.nvim'
 
     use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
       config = function()
         require('hughfm.treesitter')
-      end
+      end,
+      requires = {
+        'nvim-treesitter/playground',
+        'nvim-treesitter/nvim-treesitter-textobjects',
+      },
     }
-    use 'nvim-treesitter/playground'
-    use 'nvim-treesitter/nvim-treesitter-textobjects'
 
     use {
       'neovim/nvim-lspconfig',
       config = function()
         require('hughfm.eslint')
         require('hughfm.lsp')
-      end
+      end,
+      requires = {
+        'folke/lsp-colors.nvim',
+      },
     }
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-nvim-lua'
-    use 'hrsh7th/cmp-emoji'
     use {
       'hrsh7th/nvim-cmp',
       config = function()
         require('hughfm.cmp')
-      end
+      end,
+      requires = {
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-nvim-lua',
+        'hrsh7th/cmp-emoji',
+      },
     }
 
     -- search
@@ -58,8 +67,12 @@ return require('packer').startup {
 
     -- Git
     use 'airblade/vim-gitgutter' -- shows git status in sidebar
-    use 'tpope/vim-fugitive' -- wrapper for git commands
-    use 'tpope/vim-rhubarb'
+    use {
+      'tpope/vim-fugitive',
+      requires = {
+        'tpope/vim-rhubarb',
+      },
+    }
 
     -- displays color previews for hex values like #c0ffee and rgb(100, 100, 100).
     use { 'rrethy/vim-hexokinase', run = 'make hexokinase' }
@@ -70,10 +83,7 @@ return require('packer').startup {
     -- colors
     use 'morhetz/gruvbox'
 
-    use 'tpope/vim-commentary'
-    use 'tpope/vim-surround'
-
-    -- Load this last
+    -- last
     use 'ryanoasis/vim-devicons'
   end
 }
