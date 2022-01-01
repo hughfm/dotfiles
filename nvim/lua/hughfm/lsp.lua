@@ -43,8 +43,8 @@ for i, kind in ipairs(kinds) do
   kinds[i] = icons[kind] or kind
 end
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
+-- Use an on_attach function to only map keys after the language server
+-- attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -54,7 +54,6 @@ local on_attach = function(client, bufnr)
 
   local opts = { noremap = true, silent = true }
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
@@ -89,8 +88,11 @@ local servers = {
   "graphql",
   "html",
   "jsonls",
-  "tsserver",
   "vimls",
+}
+
+vim.g.markdown_fenced_languages = {
+  "ts=typescript"
 }
 
 for _, lsp in ipairs(servers) do
@@ -112,3 +114,44 @@ for _, lsp in ipairs(servers) do
     },
   }
 end
+
+nvim_lsp.tsserver.setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  root_dir = nvim_lsp.util.root_pattern("package.json"),
+  capabilities = capabilities,
+  handlers = {
+    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+      virtual_text = {
+        prefix = "■ ",
+        spacing = 4,
+      },
+    }),
+  },
+}
+
+nvim_lsp.denols.setup {
+  on_attach = on_attach,
+  init_options = {
+    lint = true,
+  },
+  root_dir = nvim_lsp.util.root_pattern("deno.json"),
+  flags = {
+    debounce_text_changes = 150,
+  },
+  capabilities = capabilities,
+  handlers = {
+    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+      virtual_text = {
+        prefix = "■ ",
+        spacing = 4,
+      },
+    }),
+  },
+}
