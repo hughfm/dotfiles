@@ -81,8 +81,13 @@ return require('packer').startup {
     -- shows contents of registers when you need it.
     use 'junegunn/vim-peekaboo'
 
-    -- colors
-    use 'morhetz/gruvbox'
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+      config = function()
+        require('hughfm.lualine')
+      end,
+    }
 
     -- last
     use 'ryanoasis/vim-devicons'
