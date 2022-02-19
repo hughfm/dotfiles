@@ -88,6 +88,7 @@ local servers = {
   "graphql",
   "html",
   "jsonls",
+  "sumneko_lua",
   "vimls",
 }
 
@@ -153,5 +154,41 @@ nvim_lsp.denols.setup {
         spacing = 4,
       },
     }),
+  },
+}
+
+nvim_lsp.sumneko_lua.setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  capabilities = capabilities,
+  handlers = {
+    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+      virtual_text = {
+        prefix = "■ ",
+        spacing = 4,
+      },
+    }),
+  },
+  settings = {
+    Lua = {
+      telemetry = { enable = false },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = { '?.lua' },
+      },
+    },
   },
 }
