@@ -63,8 +63,10 @@ return require('packer').startup {
     use '/usr/local/opt/fzf'
     use 'junegunn/fzf.vim'
 
-    -- status/tabline
-    use 'vim-airline/vim-airline'
+    use {
+      'ellisonleao/gruvbox.nvim',
+      disable = false,
+    }
 
     -- Git
     use 'airblade/vim-gitgutter' -- shows git status in sidebar
@@ -89,7 +91,6 @@ return require('packer').startup {
       end,
     }
 
-    -- last
-    use 'ryanoasis/vim-devicons'
+    use 'kyazdani42/nvim-web-devicons'
   end
 }

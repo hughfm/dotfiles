@@ -34,3 +34,7 @@ cmd([[match Todo /\s\+$/]]) -- highlight trailing whitespace with Todo group
 
 vim.api.nvim_set_keymap('n', '<leader>d', ':bd<CR>', {})
 vim.api.nvim_set_keymap('n', '<leader>c', ':noh<CR>', {})
+
+vim.opt.termguicolors = true
+vim.o.background = "dark"
+vim.cmd([[colorscheme gruvbox]])

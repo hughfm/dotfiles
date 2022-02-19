@@ -1,7 +1,7 @@
 -- target: ~/.config/nvim/lua/hughfm/treesitter.lua
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "javascript", "typescript", "tsx", "query", "lua", "json", "jsonc" },
+  ensure_installed = { "javascript", "typescript", "tsx", "query", "lua", "json", "jsonc", "css" },
   highlight = { enable = true },
   incremental_selection = { enable = true },
   textobjects = {
