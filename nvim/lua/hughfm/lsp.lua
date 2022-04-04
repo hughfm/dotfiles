@@ -85,6 +85,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 local servers = {
   "bashls",
   "cssls",
+  "cssmodules_ls",
   "graphql",
   "html",
   "jsonls",

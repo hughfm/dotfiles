@@ -2,7 +2,10 @@
 
 npm install -g \
   bash-language-server \
+  cssmodules-language-server \
+  graphql \
   graphql-language-service-cli \
+  graphql-language-service-server \
   neovim \
   serve \
   typescript \
