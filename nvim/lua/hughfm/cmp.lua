@@ -14,6 +14,8 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -21,5 +23,5 @@ cmp.setup({
     { name = 'path' },
     { name = 'nvim_lua' },
     { name = 'emoji' },
-  }
+  },
 })
