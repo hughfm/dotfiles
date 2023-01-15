@@ -138,7 +138,7 @@ nvim_lsp.denols.setup {
   init_options = {
     lint = true,
   },
-  root_dir = nvim_lsp.util.root_pattern("deno.json"),
+  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
   flags = {
     debounce_text_changes = 150,
   },
