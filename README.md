@@ -7,6 +7,7 @@ Will need to manually install:
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 - [packer.nvim](https://github.com/wbthomason/packer.nvim)
 - [nvm](https://github.com/nvm-sh/nvm)
+- [tpm](https://github.com/tmux-plugins/tpm)
 
 Manually run FZF installer for additional shell features:
 
