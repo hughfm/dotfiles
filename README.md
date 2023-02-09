@@ -2,9 +2,11 @@
 
 Will need to manually install:
 
-[Homebrew](https://brew.sh/)
-[oh my zsh](https://ohmyz.sh/)
-[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+- [Homebrew](https://brew.sh/)
+- [oh my zsh](https://ohmyz.sh/)
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+- [packer.nvim](https://github.com/wbthomason/packer.nvim)
+- [nvm](https://github.com/nvm-sh/nvm)
 
 Manually run FZF installer for additional shell features:
 
