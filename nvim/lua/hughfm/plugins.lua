@@ -63,7 +63,7 @@ return require('packer').startup {
     }
 
     -- search
-    use '/usr/local/opt/fzf'
+    use 'junegunn/fzf'
     use 'junegunn/fzf.vim'
 
     use {
