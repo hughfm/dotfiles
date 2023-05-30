@@ -86,7 +86,6 @@ local servers = {
   "graphql",
   "html",
   "jsonls",
-  "sumneko_lua",
   "vimls",
 }
 
@@ -155,7 +154,7 @@ nvim_lsp.denols.setup {
   },
 }
 
-nvim_lsp.sumneko_lua.setup {
+nvim_lsp.lua_ls.setup {
   on_attach = on_attach,
   flags = {
     debounce_text_changes = 150,

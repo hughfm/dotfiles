@@ -13,3 +13,4 @@ npm install -g \
   vim-language-server \
   vscode-langservers-extracted \
   eslint_d \
+  @cucumber/language-server \
