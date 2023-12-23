@@ -40,7 +40,6 @@ return require('packer').startup {
     use {
       'neovim/nvim-lspconfig',
       config = function()
-        require('hughfm.eslint')
         require('hughfm.lsp')
       end,
       requires = {
