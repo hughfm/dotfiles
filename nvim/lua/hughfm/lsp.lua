@@ -1,6 +1,7 @@
 -- target: ~/.config/nvim/lua/lsp.lua
 
 local nvim_lsp = require('lspconfig')
+local util = require('vim.lsp.util')
 
 vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
 vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
@@ -43,11 +44,8 @@ for i, kind in ipairs(kinds) do
   kinds[i] = icons[kind] or kind
 end
 
--- Use an on_attach function to only map keys after the language server
--- attaches to the current buffer
-local on_attach = function(client, bufnr)
+local common_on_attach = function(_, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   local opts = { noremap = true, silent = true }
 
@@ -67,11 +65,11 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "double" } })<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "double" } })<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-capabilities.textDocument.completion.completionItem.resolveSupport = {
+local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+cmp_capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
     'documentation',
     'detail',
@@ -95,11 +93,11 @@ vim.g.markdown_fenced_languages = {
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
-    on_attach = on_attach,
+    on_attach = common_on_attach,
     flags = {
       debounce_text_changes = 150,
     },
-    capabilities = capabilities,
+    capabilities = cmp_capabilities,
     handlers = {
       ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
       ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
@@ -114,12 +112,35 @@ for _, lsp in ipairs(servers) do
 end
 
 nvim_lsp.tsserver.setup {
-  on_attach = on_attach,
+  on_attach = common_on_attach,
   flags = {
     debounce_text_changes = 150,
   },
-  root_dir = nvim_lsp.util.root_pattern("package.json"),
-  capabilities = capabilities,
+  root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
+  capabilities = cmp_capabilities,
+  single_file_support = false,
+  handlers = {
+    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
+    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+      virtual_text = {
+        prefix = "■ ",
+        spacing = 4,
+      },
+    }),
+  },
+}
+
+nvim_lsp.eslint.setup {
+  on_attach = common_on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
+  capabilities = cmp_capabilities,
+  settings = {
+    format = false,
+  },
   handlers = {
     ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
@@ -133,7 +154,7 @@ nvim_lsp.tsserver.setup {
 }
 
 nvim_lsp.denols.setup {
-  on_attach = on_attach,
+  on_attach = common_on_attach,
   init_options = {
     lint = true,
   },
@@ -141,7 +162,7 @@ nvim_lsp.denols.setup {
   flags = {
     debounce_text_changes = 150,
   },
-  capabilities = capabilities,
+  capabilities = cmp_capabilities,
   handlers = {
     ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
@@ -155,11 +176,11 @@ nvim_lsp.denols.setup {
 }
 
 nvim_lsp.lua_ls.setup {
-  on_attach = on_attach,
+  on_attach = common_on_attach,
   flags = {
     debounce_text_changes = 150,
   },
-  capabilities = capabilities,
+  capabilities = cmp_capabilities,
   handlers = {
     ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
     ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
@@ -188,4 +209,42 @@ nvim_lsp.lua_ls.setup {
       },
     },
   },
+}
+
+local fmtCmd = os.getenv('EFM_FORMAT_COMMAND')
+
+local efmConfig = {
+  formatCommand = fmtCmd,
+  formatStdin = true,
+  rootMarkers = {
+    "tsconfig.json",
+    "package.json"
+  },
+}
+
+local efm_languages = {
+  typescript = { efmConfig },
+  typescriptreact = { efmConfig }
+}
+
+nvim_lsp.efm.setup {
+  root_dir = nvim_lsp.util.root_pattern(
+    "tsconfig.json",
+    "package.json"
+  ),
+  settings = {
+    languages = efm_languages,
+    log_level = 1,
+    log_file = "~/efm.log",
+  },
+  filetypes = vim.tbl_keys(efm_languages),
+  capabilities = cmp_capabilities,
+  on_attach = function(client, bufnr)
+    vim.keymap.set('n', '<space>f', function()
+      local params = util.make_formatting_params({})
+      client.request('textDocument/formatting', params, nil, bufnr)
+    end, { buffer = bufnr })
+
+    common_on_attach(client, bufnr)
+  end,
 }
