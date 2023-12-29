@@ -1,105 +1,88 @@
--- Automatically run :PackerCompile when this file changes
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+return {
+  {
+    'nvim-telescope/telescope.nvim',
+    config = function()
+      require('hughfm.telescope')
+    end,
+    dependencies = {
+      'nvim-lua/popup.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-fzy-native.nvim',
+    },
+  },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = function()
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+      ts_update()
+    end,
+    config = function()
+      require('hughfm.treesitter')
+    end,
+    dependencies = {
+      'nvim-treesitter/playground',
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+  },
+  {
+    'neovim/nvim-lspconfig',
+    config = function()
+      require('hughfm.lsp')
+    end,
+    dependencies = {
+      'folke/lsp-colors.nvim',
+    },
+  },
+  {
+    'hrsh7th/nvim-cmp',
+    config = function()
+      require('hughfm.cmp')
+    end,
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-emoji',
+      'hrsh7th/vim-vsnip',
+    },
+  },
 
-return require('packer').startup {
-  function(use)
-    use 'wbthomason/packer.nvim'
+  -- search
+  'junegunn/fzf',
+  'junegunn/fzf.vim',
 
-    use {
-      'nvim-telescope/telescope.nvim',
-      config = function()
-        require('hughfm.telescope')
-      end,
-      requires = {
-        'nvim-lua/popup.nvim',
-        'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope-fzy-native.nvim',
-      },
-    }
+  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true },
 
-    use {
-      'nvim-treesitter/nvim-treesitter',
-      run = function()
-        local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-        ts_update()
-      end,
-      config = function()
-        require('hughfm.treesitter')
-      end,
-      requires = {
-        'nvim-treesitter/playground',
-        'nvim-treesitter/nvim-treesitter-textobjects',
-      },
-    }
+  -- Git
+  'airblade/vim-gitgutter', -- shows git status in sidebar
+  {
+    'tpope/vim-fugitive',
+    dependencies = {
+      'tpope/vim-rhubarb',
+    },
+  },
 
-    use {
-      'neovim/nvim-lspconfig',
-      config = function()
-        require('hughfm.lsp')
-      end,
-      requires = {
-        'folke/lsp-colors.nvim',
-      },
-    }
-    use {
-      'hrsh7th/nvim-cmp',
-      config = function()
-        require('hughfm.cmp')
-      end,
-      requires = {
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-nvim-lua',
-        'hrsh7th/cmp-emoji',
-        'hrsh7th/vim-vsnip',
-      },
-    }
+  -- displays color previews for hex values like #c0ffee and rgb(100, 100, 100).
+  { 'rrethy/vim-hexokinase', build = 'make hexokinase' },
 
-    -- search
-    use 'junegunn/fzf'
-    use 'junegunn/fzf.vim'
+  -- shows contents of registers when you need it.
+  'junegunn/vim-peekaboo',
 
-    use {
-      'ellisonleao/gruvbox.nvim',
-      disable = false,
-    }
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    config = function()
+      require('hughfm.lualine')
+    end,
+  },
 
-    -- Git
-    use 'airblade/vim-gitgutter' -- shows git status in sidebar
-    use {
-      'tpope/vim-fugitive',
-      requires = {
-        'tpope/vim-rhubarb',
-      },
-    }
+  'kyazdani42/nvim-web-devicons',
 
-    -- displays color previews for hex values like #c0ffee and rgb(100, 100, 100).
-    use { 'rrethy/vim-hexokinase', run = 'make hexokinase' }
-
-    -- shows contents of registers when you need it.
-    use 'junegunn/vim-peekaboo'
-
-    use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-      config = function()
-        require('hughfm.lualine')
-      end,
-    }
-
-    use 'kyazdani42/nvim-web-devicons'
-
-    use {
-      'ThePrimeagen/harpoon',
-      requires = {
-        'nvim-lua/plenary.nvim',
-      },
-    }
-  end
+  {
+    'ThePrimeagen/harpoon',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+  },
 }
