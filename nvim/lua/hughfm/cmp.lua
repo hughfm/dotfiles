@@ -1,4 +1,5 @@
 local cmp = require('cmp')
+local lspkind = require('lspkind')
 
 vim.o.completeopt = "menu,menuone,noselect";
 
@@ -23,5 +24,12 @@ cmp.setup({
     { name = 'path' },
     { name = 'nvim_lua' },
     { name = 'emoji' },
+  },
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol_text',
+      maxwidth = 50,
+      ellipsis_char = '...',
+    })
   },
 })

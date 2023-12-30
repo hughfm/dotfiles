@@ -45,6 +45,7 @@ return {
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-emoji',
       'hrsh7th/vim-vsnip',
+      'onsails/lspkind.nvim',
     },
   },
 
@@ -85,4 +86,10 @@ return {
       'nvim-lua/plenary.nvim',
     },
   },
+  {
+    'nvimtools/none-ls.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+  }
 }

@@ -25,6 +25,7 @@ opt.expandtab = true --  use spaces for tabs
 opt.tabstop = 2 --  number of spaces to fill a tab
 opt.shiftwidth = 0 --  use tabstop value for determining indentation spaces
 opt.autoread = true --  automatically update buffer when file changes, if possible
+opt.signcolumn = 'auto:3'
 
 -- updatetime is set here to reduce the time for gitgutter to update
 opt.updatetime = 200 -- ms to wait before writing swap file to disk.
@@ -53,3 +54,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("hughfm.plugins")
 vim.cmd([[colorscheme gruvbox]])
+
+vim.g.markdown_fenced_languages = {
+  "ts=typescript",
+  "tsx=typescriptreact",
+}

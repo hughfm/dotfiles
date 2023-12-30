@@ -5,77 +5,72 @@ local util = require('vim.lsp.util')
 
 vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
 vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
-vim.lsp.set_log_level("debug")
 
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+-- Uncomment to enable logging
+-- vim.lsp.set_log_level("debug")
 
-for type, icon in pairs(signs) do
-  local hl = "LspDiagnosticsSign" .. type
+-- Configure signs for diagnostic messages
+for type, icon in pairs({ Error = "🙅", Warning = "😟", Hint = "🤫", Information = "💁" }) do
+  local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
-local icons = {
-  Class = " ",
-  Color = " ",
-  Constant = " ",
-  Constructor = " ",
-  Enum = "了 ",
-  EnumMember = " ",
-  Field = " ",
-  File = " ",
-  Folder = " ",
-  Function = " ",
-  Interface = "ﰮ ",
-  Keyword = " ",
-  Method = "ƒ ",
-  Module = " ",
-  Property = " ",
-  Snippet = "﬌ ",
-  Struct = " ",
-  Text = " ",
-  Unit = " ",
-  Value = " ",
-  Variable = " ",
-}
+-- Get capabilities from cmp, since it adds additional client capabilities
+-- beyond the Neovim defaults.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local kinds = vim.lsp.protocol.CompletionItemKind
+-- Global mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local float_opts = { border = "double" }
+vim.keymap.set('n', '<space>e', function() vim.diagnostic.open_float(float_opts) end)
+vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev({ float = float_opts }) end)
+vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next({ float = float_opts }) end)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
-for i, kind in ipairs(kinds) do
-  kinds[i] = icons[kind] or kind
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', function() vim.lsp.buf.hover({ border = "double" }) end, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format({
+        async = false,
+        timeout_ms = 5000,
+        name = "null-ls",
+      })
+    end, opts)
+  end,
+})
+
+-- Override floating window opts globally
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+
+---@diagnostic disable-next-line: duplicate-set-field
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or "double"
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
-
-local common_on_attach = function(_, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
-  local opts = { noremap = true, silent = true }
-
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float({ border = "double" })<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "double" } })<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "double" } })<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-end
-
-local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-cmp_capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
-}
 
 local servers = {
   "bashls",
@@ -87,110 +82,34 @@ local servers = {
   "vimls",
 }
 
-vim.g.markdown_fenced_languages = {
-  "ts=typescript"
-}
-
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
-    on_attach = common_on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
-    capabilities = cmp_capabilities,
-    handlers = {
-      ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
-      ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
-      ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = {
-          prefix = "■ ",
-          spacing = 4,
-        },
-      }),
-    },
+    capabilities = capabilities,
   }
 end
 
 nvim_lsp.tsserver.setup {
-  on_attach = common_on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
   root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
-  capabilities = cmp_capabilities,
+  capabilities = capabilities,
   single_file_support = false,
-  handlers = {
-    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
-    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-      virtual_text = {
-        prefix = "■ ",
-        spacing = 4,
-      },
-    }),
-  },
 }
 
 nvim_lsp.eslint.setup {
-  on_attach = common_on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
   root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
-  capabilities = cmp_capabilities,
-  settings = {
-    format = false,
-  },
-  handlers = {
-    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
-    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-      virtual_text = {
-        prefix = "■ ",
-        spacing = 4,
-      },
-    }),
-  },
+  capabilities = capabilities,
 }
 
 nvim_lsp.denols.setup {
-  on_attach = common_on_attach,
   init_options = {
     lint = true,
   },
   root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-  flags = {
-    debounce_text_changes = 150,
-  },
-  capabilities = cmp_capabilities,
-  handlers = {
-    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
-    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-      virtual_text = {
-        prefix = "■ ",
-        spacing = 4,
-      },
-    }),
-  },
+  capabilities = capabilities,
+  single_file_support = false,
 }
 
 nvim_lsp.lua_ls.setup {
-  on_attach = common_on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
-  capabilities = cmp_capabilities,
-  handlers = {
-    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
-    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.hover, { border = "double" }),
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-      virtual_text = {
-        prefix = "■ ",
-        spacing = 4,
-      },
-    }),
-  },
+  capabilities = capabilities,
   settings = {
     Lua = {
       telemetry = { enable = false },
@@ -211,40 +130,4 @@ nvim_lsp.lua_ls.setup {
   },
 }
 
-local fmtCmd = os.getenv('EFM_FORMAT_COMMAND')
-
-local efmConfig = {
-  formatCommand = fmtCmd,
-  formatStdin = true,
-  rootMarkers = {
-    "tsconfig.json",
-    "package.json"
-  },
-}
-
-local efm_languages = {
-  typescript = { efmConfig },
-  typescriptreact = { efmConfig }
-}
-
-nvim_lsp.efm.setup {
-  root_dir = nvim_lsp.util.root_pattern(
-    "tsconfig.json",
-    "package.json"
-  ),
-  settings = {
-    languages = efm_languages,
-    log_level = 1,
-    log_file = "~/efm.log",
-  },
-  filetypes = vim.tbl_keys(efm_languages),
-  capabilities = cmp_capabilities,
-  on_attach = function(client, bufnr)
-    vim.keymap.set('n', '<space>f', function()
-      local params = util.make_formatting_params({})
-      client.request('textDocument/formatting', params, nil, bufnr)
-    end, { buffer = bufnr })
-
-    common_on_attach(client, bufnr)
-  end,
-}
+require('null-ls').setup()
