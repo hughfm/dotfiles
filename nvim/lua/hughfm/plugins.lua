@@ -53,7 +53,8 @@ return {
   'junegunn/fzf',
   'junegunn/fzf.vim',
 
-  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true },
+  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, enabled = false },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
   -- Git
   'airblade/vim-gitgutter', -- shows git status in sidebar
