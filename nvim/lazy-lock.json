@@ -7,7 +7,6 @@
   "cmp-path": { "branch": "main", "commit": "91ff86cd9c29299a64f968ebb45846c485725f23" },
   "fzf": { "branch": "master", "commit": "5d360180afdb059a30ac7912edf9bc94ea8d2fe3" },
   "fzf.vim": { "branch": "master", "commit": "1e054c1d075d87903647db9320116d360eb8b024" },
-  "gruvbox.nvim": { "branch": "main", "commit": "f0e029a3989691eb38cfa9272b75251c62a00821" },
   "harpoon": { "branch": "master", "commit": "ccae1b9bec717ae284906b0bf83d720e59d12b91" },
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
   "lsp-colors.nvim": { "branch": "main", "commit": "2bbe7541747fd339bdd8923fc45631a09bb4f1e5" },
