@@ -53,7 +53,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("hughfm.plugins")
-vim.cmd([[colorscheme gruvbox]])
+vim.cmd.colorscheme "catppuccin-frappe"
 
 vim.g.markdown_fenced_languages = {
   "ts=typescript",
