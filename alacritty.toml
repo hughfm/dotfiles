@@ -1,5 +1,7 @@
 # target: ~/.config/alacritty/alacritty.toml
 
+# Must install catppuccin theme here:
+# https://github.com/catppuccin/alacritty
 import = ["/Users/hughm/.config/alacritty/catppuccin/catppuccin-frappe.toml"]
 
 [cursor]
