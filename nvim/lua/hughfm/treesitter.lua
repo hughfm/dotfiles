@@ -19,8 +19,10 @@ require'nvim-treesitter.configs'.setup {
       keymaps = {
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
+        ["ac"] = "@conditional.outer",
+        ["ic"] = "@conditional.inner",
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
       },
     },
     lsp_interop = {
