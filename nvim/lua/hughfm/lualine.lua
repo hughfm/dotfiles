@@ -1,5 +1,5 @@
 require('lualine').setup {
-  options = { theme = 'gruvbox-material' },
+  options = { theme = 'catppuccin-frappe' },
   sections = {
     lualine_c = { 'filename', 'nvim_treesitter#statusline' },
   }

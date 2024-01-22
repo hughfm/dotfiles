@@ -1,13 +1,9 @@
 return {
   {
     'nvim-telescope/telescope.nvim',
-    config = function()
-      require('hughfm.telescope')
-    end,
     dependencies = {
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-fzy-native.nvim',
     },
   },
   {
@@ -54,7 +50,14 @@ return {
   'junegunn/fzf.vim',
 
   { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, enabled = false },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      require('hughfm.catppuccin')
+    end
+  },
 
   -- Git
   'airblade/vim-gitgutter', -- shows git status in sidebar
