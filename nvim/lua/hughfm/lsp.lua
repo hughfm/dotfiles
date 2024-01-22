@@ -1,10 +1,6 @@
 -- target: ~/.config/nvim/lua/lsp.lua
 
 local nvim_lsp = require('lspconfig')
-local util = require('vim.lsp.util')
-
-vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
-vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 
 -- Uncomment to enable logging
 -- vim.lsp.set_log_level("debug")
@@ -130,4 +126,7 @@ nvim_lsp.lua_ls.setup {
   },
 }
 
-require('null-ls').setup()
+require('null-ls').setup({
+  root_dir = require("null-ls.utils").root_pattern("tsconfig.json"),
+  debug = true,
+})
