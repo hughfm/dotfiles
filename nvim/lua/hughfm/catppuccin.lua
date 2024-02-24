@@ -1,5 +1,6 @@
 require("catppuccin").setup {
   integrations = {
+    notify = true,
     cmp = true,
     treesitter = true,
     native_lsp = {

@@ -95,5 +95,11 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
     },
-  }
+  },
+  {
+    'rcarriga/nvim-notify',
+    config = function()
+      require('hughfm.notify')
+    end
+  },
 }
