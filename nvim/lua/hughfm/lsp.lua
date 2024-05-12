@@ -76,6 +76,7 @@ local servers = {
   "html",
   "jsonls",
   "vimls",
+  "jdtls",
 }
 
 for _, lsp in ipairs(servers) do
@@ -127,6 +128,6 @@ nvim_lsp.lua_ls.setup {
 }
 
 require('null-ls').setup({
-  root_dir = require("null-ls.utils").root_pattern("tsconfig.json"),
+  root_dir = require("null-ls.utils").root_pattern("package.json"),
   debug = true,
 })
