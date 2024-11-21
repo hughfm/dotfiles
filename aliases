@@ -37,7 +37,3 @@ fi
 if command -v kitty > /dev/null; then
   alias icat="kitty +kitten icat"
 fi
-
-if command -v exa > /dev/null; then
-  alias ls='exa --long --header --all --group --icons'
-fi
