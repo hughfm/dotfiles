@@ -87,7 +87,7 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-nvim_lsp.tsserver.setup {
+nvim_lsp.ts_ls.setup {
   root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
   capabilities = capabilities,
   single_file_support = false,
