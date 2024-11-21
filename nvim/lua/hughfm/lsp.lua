@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format({
         async = false,
-        timeout_ms = 5000,
+        timeout_ms = 10000,
         name = "null-ls",
       })
     end, opts)
