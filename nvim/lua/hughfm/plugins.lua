@@ -102,4 +102,5 @@ return {
       require('hughfm.notify')
     end
   },
+  'github/copilot.vim',
 }
