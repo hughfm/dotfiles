@@ -23,3 +23,23 @@ fi
 if command -v kitty > /dev/null; then
   alias icat="kitty +kitten icat"
 fi
+
+# Git worktree helper function
+new_worktree() {
+  local branch_name="$1"
+  local worktrees_dir="${2:-../worktrees}"
+
+  if [[ -z "$branch_name" ]]; then
+    echo "Usage: new_worktree  [worktrees_directory]"
+    return 1
+  fi
+
+  # Fetch latest origin/master
+  git fetch origin master
+
+  # Create worktree with new branch based on origin/master
+  git worktree add "$worktrees_dir/$branch_name" -b "$branch_name" origin/master --no-track
+}
+
+# Alias for convenience
+alias gwa="new_worktree"
