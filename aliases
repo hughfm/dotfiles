@@ -9,6 +9,7 @@ alias grb='git checkout $(git branch --sort=-committerdate | FZF)'
 alias gsn='git status -uno'
 
 if command -v nvim > /dev/null; then
+  alias nvim='nvim --listen /tmp/nvim'
   alias v=nvim
   alias vi=nvim
   alias vim=nvim
