@@ -23,7 +23,6 @@ cmp.setup({
     { name = 'buffer' },
     { name = 'path' },
     { name = 'nvim_lua' },
-    { name = 'emoji' },
   },
   formatting = {
     format = lspkind.cmp_format({
