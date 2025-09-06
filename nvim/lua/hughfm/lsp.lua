@@ -21,8 +21,6 @@ local float_opts = { border = "double" }
 vim.keymap.set('n', '<space>e', function() vim.diagnostic.open_float(float_opts) end)
 vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev({ float = float_opts }) end)
 vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next({ float = float_opts }) end)
-vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ float = float_opts, severity = "ERROR" }) end)
-vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ float = float_opts, severity = "ERROR" }) end)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
@@ -74,7 +72,6 @@ local servers = {
   "bashls",
   "cssls",
   "cssmodules_ls",
-  "graphql",
   "html",
   "jsonls",
   "vimls",
