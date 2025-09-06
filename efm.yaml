@@ -1,5 +1,0 @@
-# target: ~/.config/efm-langserver/config.yaml
-
-version: 2
-log-file: ./efm.log
-log-level: 1
