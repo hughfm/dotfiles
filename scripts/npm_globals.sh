@@ -1,16 +1,9 @@
 #! /bin/zsh
 
-npm install -g \
+pnpm add -g \
   bash-language-server \
   cssmodules-language-server \
-  graphql \
-  graphql-language-service-cli \
-  graphql-language-service-server \
-  neovim \
-  serve \
   typescript \
   typescript-language-server \
-  vim-language-server \
-  vscode-langservers-extracted \
-  eslint_d \
-  @cucumber/language-server \
+  vscode-langservers-extracted@4.8.0 \
+  @anthropic-ai/claude-code
