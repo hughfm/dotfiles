@@ -6,7 +6,7 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="agnoster"
 HIST_STAMPS="dd.mm.yyyy"
 
-plugins=(brew git common-aliases docker macos zsh-autosuggestions autojump)
+plugins=(brew git common-aliases docker autojump zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.aliases ] && source ~/.aliases
