@@ -68,21 +68,18 @@ return {
     },
   },
 
-  -- displays color previews for hex values like #c0ffee and rgb(100, 100, 100).
-  { 'rrethy/vim-hexokinase', build = 'make hexokinase' },
-
   -- shows contents of registers when you need it.
   'junegunn/vim-peekaboo',
 
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('hughfm.lualine')
     end,
   },
 
-  'kyazdani42/nvim-web-devicons',
+  'nvim-tree/nvim-web-devicons',
 
   {
     'ThePrimeagen/harpoon',
@@ -102,5 +99,6 @@ return {
       require('hughfm.notify')
     end
   },
+
   'github/copilot.vim',
 }
