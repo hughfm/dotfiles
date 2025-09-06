@@ -87,6 +87,10 @@ nvim_lsp.ts_ls.setup {
   root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
   capabilities = capabilities,
   single_file_support = false,
+  init_options = {
+    hostInfo = "neovim",
+    maxTsServerMemory = 12288,
+  },
 }
 
 nvim_lsp.eslint.setup {
@@ -94,38 +98,8 @@ nvim_lsp.eslint.setup {
   capabilities = capabilities,
 }
 
-nvim_lsp.denols.setup {
-  init_options = {
-    lint = true,
-  },
-  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-  capabilities = capabilities,
-  single_file_support = false,
-}
-
-nvim_lsp.lua_ls.setup {
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      telemetry = { enable = false },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = { '?.lua' },
-      },
-    },
-  },
-}
-
 require('null-ls').setup({
   root_dir = require("null-ls.utils").root_pattern("package.json"),
   debug = true,
+  default_timeout = 10000,
 })
