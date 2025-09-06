@@ -20,10 +20,6 @@ if command -v bat > /dev/null; then
   alias ag='ag --pager bat'
 fi
 
-if command -v kitty > /dev/null; then
-  alias icat="kitty +kitten icat"
-fi
-
 # Git worktree helper function
 new_worktree() {
   local branch_name="$1"
