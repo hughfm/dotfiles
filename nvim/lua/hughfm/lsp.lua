@@ -75,7 +75,6 @@ local servers = {
   "html",
   "jsonls",
   "vimls",
-  "jdtls",
 }
 
 for _, lsp in ipairs(servers) do
