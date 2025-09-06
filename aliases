@@ -15,21 +15,6 @@ if command -v nvim > /dev/null; then
   alias vim=nvim
 fi
 
-if command -v hub > /dev/null; then
-  alias git=hub
-fi
-
-if command -v kubectl > /dev/null; then
-  alias k=kubectl
-fi
-
-if command -v docker > /dev/null; then
-  alias dash='docker exec -ti $(docker ps --format "{{.Names}}" | sort -r | FZF) bash'
-  alias dstopall='docker ps -q | xargs docker stop'
-  alias dstartall='docker ps -a -q | xargs docker start'
-  alias dclean='dstopall && docker system prune'
-fi
-
 if command -v bat > /dev/null; then
   alias cat='bat'
   alias ag='ag --pager bat'
