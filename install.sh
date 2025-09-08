@@ -24,23 +24,4 @@ if [ ! -d ~/.config/tmux/plugins/catppuccin/tmux ]; then
   git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
 fi
 
-if [[ -f ~/.zshrc && ! -L ~/.zshrc ]]; then
-  echo 'backing up existing .zshrc'
-  mv ~/.zshrc{,.backup}
-fi
-
-if [[ -f ~/.gitconfig && ! -L ~/.gitconfig ]]; then
-  echo 'backing up existing .gitconfig'
-  mv ~/.gitconfig{,.backup}
-fi
-
-export STOW_DIR=~/.dotfiles
-
-stow gh --dotfiles -t ~
-stow nvim --dotfiles -t ~
-stow zsh --dotfiles -t ~
-stow tmux --dotfiles -t ~
-stow git --dotfiles -t ~
-stow claude --dotfiles -t ~
-
-~/.dotfiles/scripts/npm_globals.sh
+$(dirname "$0")/scripts/npm_globals.sh
