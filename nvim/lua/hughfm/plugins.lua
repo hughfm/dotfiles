@@ -5,21 +5,24 @@ return {
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim',
     },
-  },
-  {
-    'nvim-treesitter/nvim-treesitter',
-    build = function()
-      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-      ts_update()
-    end,
     config = function()
-      require('hughfm.treesitter')
+      require('hughfm.telescope')
     end,
-    dependencies = {
-      'nvim-treesitter/playground',
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
   },
+  -- {
+  --   'nvim-treesitter/nvim-treesitter',
+  --   build = function()
+  --     local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+  --     ts_update()
+  --   end,
+  --   config = function()
+  --     require('hughfm.treesitter')
+  --   end,
+  --   dependencies = {
+  --     'nvim-treesitter/playground',
+  --     'nvim-treesitter/nvim-treesitter-textobjects',
+  --   },
+  -- },
   {
     'neovim/nvim-lspconfig',
     config = function()
@@ -46,7 +49,9 @@ return {
   },
 
   -- search
-  'junegunn/fzf',
+  { 'junegunn/fzf', config = function()
+    require('hughfm.fzf')
+  end, },
   'junegunn/fzf.vim',
 
   { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, enabled = false },

@@ -1,5 +1,4 @@
 -- target: ~/.config/nvim/init.lua
-
 local opt = vim.opt
 local cmd = vim.cmd
 
@@ -52,12 +51,23 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   })
 end
-vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("hughfm.plugins")
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup({
+  spec = "hughfm.plugins",
+  performance = {
+    rtp = {
+      reset = false,
+    },
+  },
+});
+
 vim.cmd.colorscheme "catppuccin-frappe"
 
 vim.g.markdown_fenced_languages = {
   "ts=typescript",
   "tsx=typescriptreact",
 }
+
+opt.foldexpr = 'nvim_treesitter#foldexpr()';
+opt.foldmethod = 'expr';
