@@ -5,5 +5,6 @@ pnpm add -g \
   cssmodules-language-server \
   typescript \
   typescript-language-server \
+  @typescript/native-preview \
   vscode-langservers-extracted@4.8.0 \
   @anthropic-ai/claude-code
