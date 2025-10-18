@@ -73,6 +73,5 @@ vim.lsp.enable({
   'jsonls',
   'html',
   'cssmodules_ls',
-  'vimls',
   'eslint',
 });
