@@ -71,3 +71,4 @@ vim.g.markdown_fenced_languages = {
 
 opt.foldexpr = 'nvim_treesitter#foldexpr()';
 opt.foldmethod = 'expr';
+opt.foldlevelstart = 99; -- open all folds by default
