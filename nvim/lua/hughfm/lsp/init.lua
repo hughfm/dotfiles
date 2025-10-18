@@ -1,19 +1,17 @@
--- target: ~/.config/nvim/lua/lsp.lua
+-- Get capabilities from cmp, since it adds additional client capabilities
+-- beyond the Neovim defaults.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local nvim_lsp = require('lspconfig')
-
--- Uncomment to enable logging
--- vim.lsp.set_log_level("debug")
+vim.lsp.config('*', {
+  capabilities = capabilities,
+  root_markers = { '.git' },
+})
 
 -- Configure signs for diagnostic messages
 for type, icon in pairs({ Error = "🙅", Warning = "😟", Hint = "🤫", Information = "💁" }) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
-
--- Get capabilities from cmp, since it adds additional client capabilities
--- beyond the Neovim defaults.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -68,38 +66,13 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
-local servers = {
-  "bashls",
-  "cssls",
-  "cssmodules_ls",
-  "html",
-  "jsonls",
-  "vimls",
-}
-
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    capabilities = capabilities,
-  }
-end
-
-nvim_lsp.ts_ls.setup {
-  root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
-  capabilities = capabilities,
-  single_file_support = false,
-  init_options = {
-    hostInfo = "neovim",
-    maxTsServerMemory = 12288,
-  },
-}
-
-nvim_lsp.eslint.setup {
-  root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
-  capabilities = capabilities,
-}
-
-require('null-ls').setup({
-  root_dir = require("null-ls.utils").root_pattern("package.json"),
-  debug = true,
-  default_timeout = 10000,
-})
+vim.lsp.enable({
+  -- 'tsgo',
+  'ts_ls',
+  'bashls',
+  'jsonls',
+  'html',
+  'cssmodules_ls',
+  'vimls',
+  'eslint',
+});
