@@ -7,11 +7,22 @@ vim.lsp.config('*', {
   root_markers = { '.git' },
 })
 
--- Configure signs for diagnostic messages
-for type, icon in pairs({ Error = "🙅", Warning = "😟", Hint = "🤫", Information = "💁" }) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+      [vim.diagnostic.severity.HINT] = "󰠠 ",
+    },
+    linehl = {
+      [vim.diagnostic.severity.ERROR] = "Error",
+      [vim.diagnostic.severity.WARN] = "Warn",
+      [vim.diagnostic.severity.INFO] = "Info",
+      [vim.diagnostic.severity.HINT] = "Hint",
+    },
+  },
+})
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

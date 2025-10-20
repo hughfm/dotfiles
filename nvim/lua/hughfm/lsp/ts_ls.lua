@@ -1,4 +1,4 @@
-vim.lsp.config('ts_ls', {
+return {
   root_dir = nvim_lsp.util.root_pattern("tsconfig.json"),
   capabilities = capabilities,
   single_file_support = false,
@@ -6,4 +6,4 @@ vim.lsp.config('ts_ls', {
     hostInfo = "neovim",
     maxTsServerMemory = 12288,
   },
-});
+};
