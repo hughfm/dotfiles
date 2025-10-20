@@ -54,7 +54,6 @@ return {
   end, },
   'junegunn/fzf.vim',
 
-  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, enabled = false },
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -87,12 +86,6 @@ return {
   'nvim-tree/nvim-web-devicons',
 
   {
-    'ThePrimeagen/harpoon',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-  },
-  {
     'nvimtools/none-ls.nvim',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -101,6 +94,7 @@ return {
       require('hughfm.null-ls')
     end,
   },
+
   {
     'rcarriga/nvim-notify',
     config = function()
@@ -108,5 +102,5 @@ return {
     end
   },
 
-  'github/copilot.vim',
+  { 'github/copilot.vim', tag = 'v1.55.0' },
 }
