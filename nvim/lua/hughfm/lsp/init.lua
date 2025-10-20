@@ -78,8 +78,7 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 end
 
 vim.lsp.enable({
-  -- 'tsgo',
-  'ts_ls',
+  os.getenv('HUGHFM_USE_TSGO_LSP') and 'tsgo' or 'ts_ls',
   'bashls',
   'jsonls',
   'html',
