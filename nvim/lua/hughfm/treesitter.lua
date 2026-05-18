@@ -1,38 +1,21 @@
--- target: ~/.config/nvim/lua/hughfm/treesitter.lua
+require('nvim-treesitter').setup {
+  -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
+  install_dir = vim.fn.stdpath('data') .. '/site'
+}
 
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "javascript", "typescript", "tsx", "query", "lua", "json", "jsonc", "css", "graphql", "php", "proto", "java", "prisma", "vimdoc" },
-  highlight = { enable = true },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "<CR>",
-      scope_incremental = "<CR>",
-      node_incremental = "<TAB>",
-      node_decremental = "<S-TAB>",
-    },
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@conditional.outer",
-        ["ic"] = "@conditional.inner",
-        ["ab"] = "@block.outer",
-        ["ib"] = "@block.inner",
-      },
-    },
-    lsp_interop = {
-      enable = true,
-      border = 'double',
-      peek_definition_code = {
-        ["df"] = "@function.outer",
-        ["dF"] = "@class.outer",
-      },
-    },
-  },
-  indent = { enable = false },
+require('nvim-treesitter').install {
+  "javascript",
+  "typescript",
+  "tsx",
+  "query",
+  "lua",
+  "json",
+  "jsonc",
+  "css",
+  "graphql",
+  "php",
+  "proto",
+  "java",
+  "prisma",
+  "vimdoc",
 }
